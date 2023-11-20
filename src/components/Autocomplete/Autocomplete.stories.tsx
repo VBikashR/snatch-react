@@ -2,10 +2,6 @@ import React from "react";
 import { Meta, StoryFn } from "@storybook/react";
 import Autocomplete from "./Autocomplete";
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCircleXmark, faCalendar } from "@fortawesome/free-solid-svg-icons";
-import { ChangeEvent } from "rollup";
-
 const items = [
   { value: "red", name: "Red" },
   { value: "black", name: "Black" },
@@ -24,10 +20,37 @@ const Template: StoryFn<typeof Autocomplete> = (args) => (
       display: "flex",
     }}
   >
-    <Autocomplete data-testId="InputField-id" {...args} />
+    <Autocomplete data-testId="InputField-id" {...args} Options={items} />
   </div>
 );
 
-export const Chip1 = Template.bind({});
-Chip1.args = {};
-Chip1.storyName = "Standard Autocomplete";
+export const AC1 = Template.bind({});
+AC1.args = {
+  accessibilityLabel: "Search",
+  placeholder: "Search here",
+};
+AC1.storyName = "Standard Autocomplete used for searching";
+
+export const AC2 = () => (
+  <div
+    style={{
+      display: "flex",
+    }}
+  >
+    <Autocomplete
+      data-testId="InputField-id"
+      accessibilityLabel="error search"
+      Options={items}
+      placeholder="Search here"
+    />
+  </div>
+);
+AC2.storyName = "With Error Message in invalid State";
+
+export const AC3 = Template.bind({});
+AC3.args = {
+  accessibilityLabel: "Search with label",
+  placeholder: "Search here",
+  label: "Label",
+};
+AC3.storyName = "Standard Autocomplete with Label";

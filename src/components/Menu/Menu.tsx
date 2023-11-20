@@ -3,21 +3,17 @@ import MenuItem from "./MenuItem";
 import MenuRow from "./MenuRow";
 import styled from "styled-components";
 
+// Define the props for the Menu component
 export type MenuProps = {
-  /** List of `Row`s, `Item`s, and `Separator`s to render in the menu. */
   children?: React.ReactNode;
-  /** Accessibility label. */
   accessibilityLabel?: string;
-  /** Maximum height of the menu before scrolling. */
   maxHeight?: number;
-  /** Minimum width of the menu. */
   minWidth?: number;
-  /** Accessibility role. */
   role?: string;
-  /** Whether or not the menu has visible overflow. */
   overflow?: boolean;
 };
 
+// Define the styled ul element
 const StyledMenuUl = styled.ul<MenuProps>`
   margin: 0;
   background-color: #fff;
@@ -27,36 +23,46 @@ const StyledMenuUl = styled.ul<MenuProps>`
   z-index: 50;
   padding: 0.25rem;
   box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+
   /* Add more styles for direct child li elements as needed */
   & > li {
     position: relative;
   }
 `;
 
-/** An abstract menu for use within dropdowns, selects, autocompletes, and more. */
-export default function Menu({
-  accessibilityLabel,
-  children,
-  maxHeight,
-  minWidth = 200,
-  overflow,
-  role = "menu",
-}: MenuProps) {
-  const scrollable = !!maxHeight && !overflow;
+// Forward the ref to the ul element in the Menu component
+const Menu = React.forwardRef<HTMLUListElement, MenuProps>(
+  (
+    {
+      accessibilityLabel,
+      children,
+      maxHeight,
+      minWidth = 200,
+      overflow,
+      role = "menu",
+    },
+    ref
+  ) => {
+    const scrollable = !!maxHeight && !overflow;
 
-  return (
-    <StyledMenuUl
-      role={role}
-      aria-label={accessibilityLabel}
-      style={{
-        maxHeight: scrollable ? "auto" : `${maxHeight}px`,
-        overflowY: scrollable ? "auto" : "visible", // If there a overflow issue, this is the culprit
-        minWidth: `${minWidth}px`,
-      }}
-    >
-      {children}
-    </StyledMenuUl>
-  );
-}
+    return (
+      <StyledMenuUl
+        role={role}
+        aria-label={accessibilityLabel}
+        style={{
+          maxHeight: scrollable ? "auto" : `${maxHeight}px`,
+          overflowY: scrollable ? "auto" : "visible",
+          minWidth: `${minWidth}px`,
+        }}
+        ref={ref}
+      >
+        {children}
+      </StyledMenuUl>
+    );
+  }
+);
 
-export { MenuItem, MenuRow };
+Menu.displayName = "Menu";
+
+// Export MenuItem and MenuRow along with Menu
+export { MenuItem, MenuRow, Menu };

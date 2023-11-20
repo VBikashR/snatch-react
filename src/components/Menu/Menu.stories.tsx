@@ -1,6 +1,6 @@
 import React from "react";
 import { Meta, StoryFn } from "@storybook/react";
-import Menu, { MenuItem, MenuRow } from "./Menu";
+import { Menu, MenuItem, MenuRow } from "./Menu";
 import Seperator from "../Seperator/Seperator";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";

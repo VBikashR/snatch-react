@@ -4,8 +4,9 @@ import { AlertProps } from "./Alert.types";
 
 const StyledAlert = styled.div<AlertProps>`
   position: relative;
+  box-sizing: border-box;
   width: 100%;
-  border: solid 1px;
+  border: ${(props) => props.border && "solid 1px"};
   border-radius: 0.375rem;
   padding: 0.875rem 1rem;
   font-size: 0.875rem;
@@ -55,8 +56,14 @@ const StyledDescription = styled.div`
 `;
 
 const Alert = React.forwardRef<HTMLDivElement, AlertProps>(
-  ({ variant = "default", children, ...props }, ref) => (
-    <StyledAlert ref={ref} role="alert" variant={variant} {...props}>
+  ({ variant = "default", border = false, children, ...props }, ref) => (
+    <StyledAlert
+      ref={ref}
+      role="alert"
+      variant={variant}
+      border={border}
+      {...props}
+    >
       {children}
     </StyledAlert>
   )

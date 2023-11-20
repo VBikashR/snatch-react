@@ -1,6 +1,7 @@
 import React from "react";
 import styled, { css } from "styled-components";
 import { ChipProps } from "./Chip.types";
+import ButtonOrLink from "../Private/ButtonOrLink";
 
 const StyledChip = styled.div<ChipProps>`
   border: solid 1px;
@@ -34,7 +35,7 @@ const StyledIconDiv = styled.div<ChipProps>`
   margin-top: 0.1rem;
 `;
 
-const StyledIconButton = styled.button<ChipProps>`
+const StyledIconButton = styled(ButtonOrLink)<ChipProps>`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -59,7 +60,7 @@ const Chip = ({
   children,
   disabled,
   id,
-  onClick,
+  onIconClick,
   hasOnIconClick,
   ...props
 }: ChipProps) => {
@@ -80,7 +81,7 @@ const Chip = ({
             {hasOnIconClick ? (
               <StyledIconButton
                 active={active}
-                onClick={onClick}
+                onClick={onIconClick}
                 disabled={disabled}
               >
                 {afterIcon}

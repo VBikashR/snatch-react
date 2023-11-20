@@ -1,4 +1,4 @@
-export type ButtonOrLinkTypes = HTMLAnchorElement | HTMLButtonElement;
+import { ButtonOrLinkTypes } from "../Private/ButtonOrLink";
 
 export type ChipProps = {
   /** Renders with a primary background and white text. */
@@ -14,7 +14,7 @@ export type ChipProps = {
   /** Pass an HTML element attribute id.*/
   id?: string;
   /** Callback fired when the icon is clicked. ( requires an icon). */
-  onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
+  onIconClick?: (event: React.MouseEvent<ButtonOrLinkTypes>) => void;
   /** flag to enable right icon as button*/
   hasOnIconClick?: boolean;
 };
