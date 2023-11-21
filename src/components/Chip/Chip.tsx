@@ -4,7 +4,7 @@ import { ChipProps } from "./Chip.types";
 import ButtonOrLink from "../Private/ButtonOrLink";
 
 const StyledChip = styled.div<ChipProps>`
-  border: solid 1px;
+  border: solid 1px #94a3b8;
   border-radius: 0.725rem;
   display: inline-flex;
   align-items: center;
@@ -13,15 +13,17 @@ const StyledChip = styled.div<ChipProps>`
   justify-content: center;
   margin: 0 0.25rem;
   padding: ${(props) =>
-    props.afterIcon
-      ? "0.125rem 0.2rem 0.125rem 0.5rem"
-      : "0.125rem 0.5rem 0.125rem 0.5rem"};
+    props.hasOnIconClick
+      ? "0.125rem 0.2rem 0.125rem 1rem"
+      : props.afterIcon
+      ? "0.125rem 0.75rem 0.125rem 0.75rem"
+      : "0.125rem 0.75rem 0.125rem 0.75rem"};
   font-size: 0.75rem;
   line-height: 1rem;
-  font-weight: 600;
+  font-weight: 400;
   gap: 0.25rem;
   background-color: ${(props) => (props.active ? "#000" : "#fff")};
-  color: ${(props) => (props.active ? "#fff" : "#000")};
+  color: ${(props) => (props.active ? "#fff" : "#1e293b")};
   ${(props) =>
     props.disabled &&
     css`

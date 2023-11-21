@@ -58,19 +58,10 @@ const Multicomplete: React.FC<MulticompleteProps> = ({
     item: any | null,
     event?: React.SyntheticEvent<HTMLElement>
   ) => {
-    if (props.onSelectItem) {
-      props.onSelectItem(value, item, event);
-    }
+    const newValues = new Set(values).add(value);
+    setValues(newValues);
 
-    if (!value || (!item && !selectUnknownOnEnter)) {
-      return;
-    }
-
-    setValues((prevValues) => {
-      const newValues = new Set(prevValues).add(value);
-      onChange && onChange(Array.from(newValues), event!);
-      return newValues;
-    });
+    //   onChange && onChange(Array.from(newValues), event!);
   };
 
   const handleChipClick = (
@@ -90,11 +81,12 @@ const Multicomplete: React.FC<MulticompleteProps> = ({
       {...props}
       onChange={handleChange}
       onSelectItem={handleSelectItem}
+      multiselect={true}
     >
       {Array.from(values).length > 0 && (
-        <div>
-          {Array.from(values).map((value) => (
-            <React.Fragment key={value}>
+        <div style={{ position: "absolute", marginTop: "5px" }}>
+          {Array.from(values).map((value, index) => (
+            <React.Fragment key={index}>
               {customRenderChip(value, () =>
                 handleChipClick(value, {} as React.MouseEvent<HTMLElement>)
               )}

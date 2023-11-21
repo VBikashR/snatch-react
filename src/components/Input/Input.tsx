@@ -11,7 +11,7 @@ const StyledInput = styled.input<InputProps>`
   border-color: ${(props) =>
     props.disabled
       ? "#e4e3ea"
-      : props.error
+      : props.error === "true"
       ? "#a9150b"
       : props.success
       ? "#067d68"
@@ -84,7 +84,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
       errorMessage,
       error,
       success,
-      inline,
+      inline = "false",
       onChange,
       placeholder,
       ...props

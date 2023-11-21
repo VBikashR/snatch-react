@@ -3,11 +3,11 @@ export interface InputProps
   id?: string;
   type?: string;
   label?: string;
-  error?: boolean;
+  error?: "true" | "false";
   errorMessage?: string;
   success?: boolean;
   disabled?: boolean;
   placeholder?: string;
-  inline?: boolean;
+  inline?: "true" | "false";
   onChange?: React.ChangeEventHandler<HTMLInputElement>;
 }

@@ -4,6 +4,7 @@ import Loader from "../Loader/Loader";
 import { Menu, MenuItem, MenuRow } from "../Menu/Menu";
 import Input from "../Input/Input";
 import { Alert, AlertDescription } from "../Alert";
+import FormField from "../FormField/FormField";
 
 //TODO - > When menu dropdown opens, move the focus to items
 //TODO - > inside the container to make items selectabel using keys
@@ -21,10 +22,14 @@ export type AutocompleteProps = {
   onChange?: (value: string, event: React.SyntheticEvent<HTMLElement>) => void;
   placeholder?: string;
   onSuggestionSelected?: (selectedValue: any) => void;
+  /** optional value from parent. usefull when the component is used as multi select to not display the selected value*/
+  multiselect?: boolean;
 };
 
 const Autocomplete: React.FC<AutocompleteProps> = ({
   accessibilityLabel,
+  children,
+  multiselect = false,
   label,
   Options,
   onSelectItem = () => {},
@@ -57,7 +62,7 @@ const Autocomplete: React.FC<AutocompleteProps> = ({
           option?.name.toLowerCase().includes(inputValue?.toLowerCase())
         );
         resolve(filteredData);
-      }, 1000); // Simulating a delay of 1 second
+      }, 500); // Simulating a delay of 1 second
     });
   };
 
@@ -79,6 +84,11 @@ const Autocomplete: React.FC<AutocompleteProps> = ({
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(event.target.value);
+    if (multiselect) {
+      setInputValue("");
+    } else {
+      setInputValue(event.target.value);
+    }
     setOpen(true);
   };
 
@@ -86,7 +96,12 @@ const Autocomplete: React.FC<AutocompleteProps> = ({
     item: string,
     event: React.MouseEvent<HTMLElement>
   ) => {
-    setInputValue(item);
+    if (multiselect) {
+      setInputValue("");
+    } else {
+      setInputValue(item);
+    }
+    // setInputValue(item);
     onSuggestionSelected && onSuggestionSelected(item);
     setOpen(false);
 
@@ -125,31 +140,47 @@ const Autocomplete: React.FC<AutocompleteProps> = ({
 
   const renderMenu = () => {
     return (
-      <Menu ref={dropdownRef} accessibilityLabel={accessibilityLabel}>
-        {loading
-          ? renderLoading()
-          : filteredSuggestion?.length > 0
-          ? renderItems()
-          : renderError()}
-      </Menu>
+      <div
+        style={{
+          position: "absolute",
+          top: "110%",
+          left: 5,
+          right: 0,
+          zIndex: 10,
+        }}
+      >
+        <Menu ref={dropdownRef} accessibilityLabel={accessibilityLabel}>
+          {loading
+            ? renderLoading()
+            : filteredSuggestion?.length > 0
+            ? renderItems()
+            : renderError()}
+        </Menu>
+      </div>
     );
   };
 
   return (
-    <div style={{ display: "block", position: "relative" }}>
-      <Input
-        role="checkbox"
-        value={inputValue}
-        aria-autocomplete="list"
-        // aria-expanded={open}
-        autoComplete="off"
-        type="search"
-        onChange={handleInputChange}
-        label={label}
-        placeholder={placeholder}
-      />
-      {open && renderMenu()}
-    </div>
+    <FormField>
+      <div style={{ display: "block", position: "relative" }}>
+        <Input
+          role="checkbox"
+          inline={"false"}
+          value={inputValue}
+          aria-autocomplete="list"
+          // aria-expanded={open}
+          autoComplete="off"
+          type="search"
+          onChange={handleInputChange}
+          label={label}
+          placeholder={placeholder}
+        />
+
+        {open && renderMenu()}
+      </div>
+
+      {children}
+    </FormField>
   );
 };
 

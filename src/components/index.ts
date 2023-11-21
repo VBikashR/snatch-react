@@ -7,3 +7,6 @@ export * from "./Chip";
 export * from "./Menu";
 export * from "./Seperator";
 export * from "./Loader";
+export * from "./Alert";
+export * from "./Autocomplete";
+export * from "./Multicomplete";

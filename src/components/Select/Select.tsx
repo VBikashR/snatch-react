@@ -53,6 +53,7 @@ const StyledArrow = styled.span`
   pointer-events: none;
   z-index: 1;
   transform: translateY(-50%);
+  margin-right: 0.125rem;
 `;
 
 const StyledMessage = styled.div<SelectProps>`
@@ -111,6 +112,7 @@ const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
               error={error}
               success={success}
               disabled={disabled}
+              value={value}
               onChange={handleChange}
               {...props}
               ref={ref}

@@ -9,13 +9,13 @@ export default {
 
 const Template: StoryFn<typeof Input> = (args) => (
   <div style={{ maxWidth: "24rem" }}>
-    <Input data-testId="InputField-id" {...args} />
+    <Input data-testid="Inputfield-id" {...args} />
   </div>
 );
 
 export const Primary = Template.bind({});
 Primary.args = {
-  error: false,
+  error: "false",
   disabled: false,
   label: "Label",
   type: "text",
@@ -25,7 +25,7 @@ Primary.storyName = "A standard Text Field";
 
 export const Success = Template.bind({});
 Success.args = {
-  error: false,
+  error: "false",
   success: true,
   disabled: false,
   label: "Label",
@@ -37,7 +37,7 @@ Success.storyName = "In a success state";
 
 export const Error = Template.bind({});
 Error.args = {
-  error: true,
+  error: "true",
   disabled: false,
   label: "Label",
   errorMessage: "This field is required",
@@ -66,6 +66,6 @@ Inline.args = {
   type: "text",
   label: "Label",
   id: "text",
-  inline: true,
+  inline: "true",
 };
 Inline.storyName = "Display with inline label";

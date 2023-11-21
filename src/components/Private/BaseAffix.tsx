@@ -12,6 +12,10 @@ export type BaseAffixProps = {
   flex?: boolean;
   /** Decrease font size and padding. */
   small?: boolean;
+  /** Increase font size and padding. */
+  large?: boolean;
+  /** Mark the affix as disabled. */
+  disabled?: boolean;
 };
 
 const StyledDiv = styled.div<BaseAffixProps>`

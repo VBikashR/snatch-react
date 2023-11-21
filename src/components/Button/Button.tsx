@@ -44,6 +44,11 @@ const StyledButton = styled.button<ButtonProps>`
     css`
       background-color: transparent;
     `}
+    ${(props) =>
+    props.variant === "ghost" &&
+    css`
+      background-color: transparent;
+    `}
 
     ${(props) =>
     props.variant === "link" &&
