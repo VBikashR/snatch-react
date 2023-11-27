@@ -17,7 +17,7 @@ export default {
 const Template: StoryFn<typeof Autocomplete> = (args) => (
   <div
     style={{
-      display: "flex",
+      width: 800,
     }}
   >
     <Autocomplete data-testId="InputField-id" {...args} Options={items} />
@@ -40,7 +40,7 @@ export const AC2 = () => (
     <Autocomplete
       data-testId="InputField-id"
       accessibilityLabel="error search"
-      Options={items}
+      Options={[]}
       placeholder="Search here"
     />
   </div>

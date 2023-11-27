@@ -1,6 +1,7 @@
 import { MouseEventHandler } from "react";
+import { ButtonOrLinkProps } from "../Private/ButtonOrLink";
 
-export interface ButtonProps {
+export type ButtonProps = ButtonOrLinkProps & {
   text?: string;
   /**true will disable the button*/
   disabled?: boolean;
@@ -13,7 +14,10 @@ export interface ButtonProps {
     | "outline"
     | "secondary"
     | "ghost"
-    | "link";
+    | "link"
+    | "tag";
   /**Callback fired when the element is clicked*/
   onClick?: MouseEventHandler<HTMLButtonElement>;
-}
+  /** Render as a block with full width. */
+  block?: boolean;
+};

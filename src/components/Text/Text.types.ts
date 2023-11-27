@@ -35,6 +35,4 @@ export type TextProps = {
   truncated?: boolean;
   /** Uppercase all text. */
   uppercased?: boolean;
-  /** Custom style sheet. */
-  styleSheet?: StyleSheet;
 };

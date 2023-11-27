@@ -1,8 +1,10 @@
 import React, { useEffect, useCallback, useRef, useState } from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
+import { ButtonProps } from "../Button/Button.types";
 import Button from "../Button/Button";
+import Text from "../Text/Text";
 
-export type DropdownProps = {
+export type DropdownProps = ButtonProps & {
   /** Bottom offset. */
   bottom?: number | string;
   /** Content within the dropdown. */
@@ -31,6 +33,10 @@ export type DropdownProps = {
   visible?: boolean;
   /** Z-index of the dropdown. */
   zIndex?: number | "auto";
+  beforeIcon?: React.ReactNode;
+  afterIcon?: React.ReactNode;
+  /**position of the dropdown menu*/
+  alignment?: "left" | "center" | "right";
 };
 
 const StyledDropDown = styled.div`
@@ -42,18 +48,33 @@ const StyledDropdownContent = styled.div<DropdownProps>`
   position: ${(props) => (props.fixed ? "fixed" : "absolute")};
   z-index: ${(props) => (props.zIndex ? props.zIndex : "auto")};
   outline: none;
-  border: solid 1px #cbd5e1;
+
+  ${(props) =>
+    props.alignment === "right"
+      ? css`
+          right: 0;
+        `
+      : props.alignment === "left"
+      ? css`
+          left: 0;
+        `
+      : css`
+          left: -50%;
+        `}
+
+  /* border: solid 1px #cbd5e1;
   border-radius: 0.375rem;
   box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
   padding: 1rem;
   min-width: 16rem;
-  width: fit-content;
+  width: fit-content; */
   margin-top: 0.125rem;
 `;
 
 /** An abstract component for displaing menus and overlays over content. */
 export default function Dropdown({
   children,
+  variant,
   fixed,
   triggerInfo,
   onBlur,
@@ -61,6 +82,8 @@ export default function Dropdown({
   tabIndex,
   zIndex,
   visible,
+  beforeIcon,
+  afterIcon,
   onClickInside,
   onClickOutside,
   ...props
@@ -80,7 +103,6 @@ export default function Dropdown({
         if (onClickInside) {
           onClickInside(event);
         }
-
         return;
       }
 
@@ -92,7 +114,7 @@ export default function Dropdown({
   );
 
   useEffect(() => {
-    if (visible) {
+    if (open) {
       document.addEventListener("click", handleClick, true);
     } else {
       document.removeEventListener("click", handleClick, true);
@@ -101,14 +123,23 @@ export default function Dropdown({
     return () => {
       document.removeEventListener("click", handleClick, true);
     };
-  }, [visible, handleClick]);
+  }, [open, handleClick]);
 
   return (
     <StyledDropDown>
-      <Button onClick={handleToggle} text={triggerInfo} />
+      <Button
+        onClick={handleToggle}
+        beforeIcon={beforeIcon}
+        afterIcon={afterIcon}
+        variant={variant}
+        block
+      >
+        {triggerInfo}
+      </Button>
       {open && (
         <StyledDropdownContent
           {...props}
+          fixed={fixed}
           ref={ref}
           tabIndex={tabIndex}
           onBlur={onBlur}

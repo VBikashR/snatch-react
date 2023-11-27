@@ -5,9 +5,10 @@ import { LabelProps } from "./Label.types";
 const StyledLabel = styled.label<LabelProps>`
   font-size: 14px;
   font-weight: 700;
-  line-height: 1rem;
+  line-height: 1;
   color: "#080808";
-  padding-bottom: 0.375rem;
+  margin: 0;
+  padding: 0;
 `;
 
 const Label = React.forwardRef<HTMLLabelElement, LabelProps>(

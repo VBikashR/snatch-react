@@ -8,9 +8,10 @@ export type SeparatorProps = {
 const StyledHr = styled.hr<SeparatorProps>`
   padding: 0;
   margin: 0;
-  background-color: #64748b;
-  /* height: ${(props) => (props.orientation === "vertical" ? "100%" : "1px")};
-  width: ${(props) => (props.orientation === "vertical" ? "1px" : "100%")}; */
+  border: none;
+  background-color: #e2e8f0;
+  height: ${(props) => (props.orientation === "vertical" ? "100%" : "1px")};
+  width: ${(props) => (props.orientation === "vertical" ? "1px" : "100%")};
   flex-shrink: 0;
 `;
 

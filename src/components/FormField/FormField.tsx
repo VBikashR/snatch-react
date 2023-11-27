@@ -1,6 +1,7 @@
 import React from "react";
 import Prefix from "./Prefix";
 import Suffix from "./Suffix";
+import partitionFieldProps from "./partitionFieldProps";
 import StatusText from "../StatusText/StatusText";
 import styled from "styled-components";
 import Text from "../Text/Text";
@@ -67,6 +68,7 @@ export type PrivateProps = FormFieldProps & {
 const StyledContent = styled.div<PrivateProps>`
   display: flex;
   position: relative;
+  align-items: center;
   flex-grow: 1;
   margin-right: ${(props) =>
     props.inline && props.renderBeforeLabel && "0.125rem"};
@@ -77,6 +79,8 @@ const StyledContent = styled.div<PrivateProps>`
 `;
 
 const StyledAffix = styled.div`
+  border: solid 1px;
+  border-left: none;
   flex-grow: 0;
 `;
 const StyledAnchor = styled.div`
@@ -139,7 +143,6 @@ function FormField({
   small,
   suffix,
   middleAlign,
-  styleSheet,
   topAlign,
 }: PrivateProps) {
   const content = (
@@ -203,6 +206,6 @@ function FormField({
   );
 }
 
-export { Prefix, Suffix };
+export { Prefix, Suffix, partitionFieldProps };
 
 export default FormField;

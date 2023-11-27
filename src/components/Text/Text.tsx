@@ -79,7 +79,6 @@ const Text = ({
   startAlign,
   truncated,
   uppercased,
-  styleSheet,
 }: TextProps) => {
   return (
     <StyledTag
@@ -99,7 +98,6 @@ const Text = ({
       startAlign={startAlign}
       truncated={truncated}
       uppercased={uppercased}
-      styleSheet={styleSheet}
     >
       {children}
     </StyledTag>

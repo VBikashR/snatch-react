@@ -1,9 +1,12 @@
+import { ValidateRules } from "../../form/Form.types";
+
 export interface SelectProps {
   id?: string;
   label?: string;
   error?: boolean;
   /** Render the input and label inline to each other*/
   inline?: boolean;
+  rules?: ValidateRules;
   /**Text displayed when error is true*/
   errorMessage?: string;
   success?: boolean;
