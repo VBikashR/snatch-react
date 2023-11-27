@@ -6,27 +6,23 @@ import Label from "../Label/Label";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCaretDown } from "@fortawesome/free-solid-svg-icons";
 
-const StyledSelectComponentContainer = styled.div<SelectProps>`
-  display: ${(props) => (props.inline ? "flex" : "block")};
-  ${(props) =>
-    props.inline &&
-    css`
-      align-items: center;
-      gap: 1rem;
-    `}
+export const StyledSelectComponentContainer = styled.div<SelectProps>`
+  display: ${(props) => (props.inline ? "flex" : "grid")};
+  align-items: center;
+  gap: 0.375rem;
 `;
 
-const StyledSelectContainer = styled.div`
+export const StyledSelectContainer = styled.div`
   position: relative;
   display: block;
   width: 100%;
 `;
 
-const StyledSelect = styled.select<SelectProps>`
+export const StyledSelect = styled.select<SelectProps>`
   appearance: none;
   width: 100%;
   padding: 0.5rem 0.75rem;
-  height: 2.5rem;
+  height: 2.25rem;
   border: solid 1px;
   border-radius: 0.375rem;
   border-color: ${(props) =>
@@ -46,23 +42,21 @@ const StyledSelect = styled.select<SelectProps>`
   }
 `;
 
-const StyledArrow = styled.span`
+export const StyledSelectArrow = styled.span`
   position: absolute;
   right: 1%;
   top: 50%;
   pointer-events: none;
   z-index: 1;
   transform: translateY(-50%);
+  margin-right: 0.125rem;
 `;
 
-const StyledMessage = styled.div<SelectProps>`
-  font-size: 14px;
-  color: "#a9150b";
-  padding-top: 0.25rem;
-`;
-
-const StyledText = styled.p<SelectProps>`
+export const StyledText = styled.p<SelectProps>`
   margin: 0px;
+  padding-top: 0.25rem;
+  font-weight: 500;
+  font-size: 14px;
   color: ${(props) =>
     props.disabled ? "#e4e3ea" : props.error ? "#a9150b" : "#080808"};
 `;
@@ -78,6 +72,7 @@ const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
       disabled,
       success,
       onChange,
+      rules,
       value,
       children,
       placeholder,
@@ -111,6 +106,7 @@ const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
               error={error}
               success={success}
               disabled={disabled}
+              value={value}
               onChange={handleChange}
               {...props}
               ref={ref}
@@ -122,15 +118,15 @@ const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
               )}
               {children}
             </StyledSelect>
-            <StyledArrow>
+            <StyledSelectArrow>
               <FontAwesomeIcon icon={faCaretDown} size={"xs"} />
-            </StyledArrow>
+            </StyledSelectArrow>
           </StyledSelectContainer>
         </StyledSelectComponentContainer>
         {error && (
-          <StyledMessage id={`${id}-error`}>
-            <StyledText error={error}>{errorMessage}</StyledText>
-          </StyledMessage>
+          <StyledText error={error} id={`${id}-error`}>
+            {errorMessage}
+          </StyledText>
         )}
       </>
     );

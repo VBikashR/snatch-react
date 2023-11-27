@@ -20,7 +20,7 @@ export const Error = Template.bind({});
 Error.args = {
   children: "This is a label",
   disabled: false,
-  error: true,
+  error: "true",
 };
 
 export const Disable = Template.bind({});

@@ -15,6 +15,7 @@ export const Default = Template.bind({});
 Default.args = {
   label: "Primary",
   placeholder: "Comments..",
+  inline: true,
 };
 
 export const Success = Template.bind({});
@@ -40,4 +41,5 @@ Error.args = {
   disabled: false,
   label: "Primary",
   placeholder: "Comments..",
+  errorMessage: "This field is required",
 };

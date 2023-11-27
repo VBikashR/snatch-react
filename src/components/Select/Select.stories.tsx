@@ -20,7 +20,7 @@ const Template: StoryFn<typeof Select> = (args) => (
 export const Primary = Template.bind({});
 Primary.args = {
   id: "standard-select",
-  label: "Label",
+  // label: "Label",
   name: "standard-select",
 };
 
@@ -49,7 +49,7 @@ export const Placeholder = Template.bind({});
 Placeholder.args = {
   id: "placeholder-select",
   name: "placeholder-select",
-  label: "Label",
+  // label: "Label",
   placeholder: "Select an option",
 };
 Placeholder.storyName = "With no label and a placeholder";

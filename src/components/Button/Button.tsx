@@ -1,8 +1,10 @@
 import React from "react";
 import styled, { css } from "styled-components";
 import { ButtonProps } from "./Button.types";
+import ButtonOrLink from "../Private/ButtonOrLink";
+import Loader from "../Loader/Loader";
 
-const StyledButton = styled.button<ButtonProps>`
+const StyledButton = styled(ButtonOrLink)<ButtonProps>`
   border: ${(props) => (props.variant === "outline" ? "solid 1px" : 0)};
   line-height: 1.2rem;
   white-space: nowrap;
@@ -16,8 +18,9 @@ const StyledButton = styled.button<ButtonProps>`
   border-color: ${(props) =>
     props.variant === "outline" ? "#343536" : "#ffffff"};
   display: inline-block;
-  color: "#000000";
+  color: #000000;
   opacity: ${(props) => (props.disabled ? 0.5 : 1)};
+
   /** Variant*/
   ${(props) =>
     props.variant === "default" &&
@@ -43,12 +46,29 @@ const StyledButton = styled.button<ButtonProps>`
     props.variant === "outline" &&
     css`
       background-color: transparent;
+      box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+    `}
+    ${(props) =>
+    props.variant === "ghost" &&
+    css`
+      background-color: transparent;
     `}
 
     ${(props) =>
     props.variant === "link" &&
     css`
       background-color: transparent;
+      color: #1d4ed8;
+    `}
+
+    ${(props) =>
+    props.variant === "tag" &&
+    css`
+      width: 280px;
+      font-weight: 400;
+      background-color: #ffffff;
+      border: solid 1px;
+      border-color: #e5e7eb;
     `}
     
     
@@ -85,32 +105,49 @@ const StyledButton = styled.button<ButtonProps>`
         ? "rgba(241,245,249,0.8)"
         : props.variant === "ghost"
         ? " rgba(241,245,249, 0.8)"
+        : props.variant === "tag"
+        ? "rgba(241,245,249,0.5)"
         : ""};
     text-decoration: ${(props) =>
       props.variant === "link" ? "underline" : "none"};
   }
+
+  ${(props) =>
+    props.block &&
+    css`
+      display: block;
+      width: 100%;
+      white-space: normal;
+      overflow: hidden;
+    `}
 `;
 
-const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  (
-    { size = "medium", variant = "default", disabled, text, onClick, ...props },
-    ref
-  ) => {
-    return (
-      <StyledButton
-        type="button"
-        onClick={onClick}
-        variant={variant}
-        disabled={disabled}
-        size={size}
-        {...props}
-        ref={ref}
-      >
-        {text}
-      </StyledButton>
-    );
-  }
-);
+const Button: React.FC<ButtonProps> = ({
+  size = "medium",
+  variant = "default",
+  disabled,
+  children,
+  text,
+  loading,
+  inverted,
+  onClick,
+  ...props
+}) => {
+  return (
+    <StyledButton
+      type="button"
+      onClick={onClick}
+      variant={variant}
+      disabled={disabled}
+      loading={loading}
+      size={size}
+      {...props}
+      // ref={ref}
+    >
+      {loading ? <Loader inline inverted={!inverted} /> : children}
+    </StyledButton>
+  );
+};
 
 Button.displayName = "Button";
 

@@ -18,7 +18,7 @@ export const primary = () => (
   >
     <div
       style={{
-        width: 500,
+        width: 900,
       }}
     >
       <Alert variant={"default"}>
